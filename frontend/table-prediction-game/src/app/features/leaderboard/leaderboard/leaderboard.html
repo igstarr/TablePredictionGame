@@ -1,0 +1,42 @@
+<section class="page">
+  <a routerLink="/" class="back-link">Back to leagues</a>
+
+  @if (league) {
+    <h1>{{ league.name }} Leaderboard</h1>
+    <p class="subtitle">Lower total error means a better prediction.</p>
+  }
+
+  @if (loading) {
+    <p>Loading leaderboard...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (entries.length === 0) {
+    <p>No predictions yet. Be the first to submit one.</p>
+    @if (league) {
+      <a [routerLink]="['/leagues', league.id, 'predict']" class="btn primary">Make prediction</a>
+    }
+  } @else {
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Total error</th>
+            <th>Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of entries; track entry.playerName + entry.submittedAt) {
+            <tr>
+              <td>{{ entry.rank }}</td>
+              <td>{{ entry.playerName }}</td>
+              <td>{{ entry.totalError }}</td>
+              <td>{{ entry.submittedAt | date: 'medium' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

@@ -1,0 +1,26 @@
+<section class="page">
+  <h1>Table Prediction Game</h1>
+  <p class="subtitle">Pick a league and predict the final standings.</p>
+
+  @if (loading) {
+    <p>Loading leagues...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (leagues.length === 0) {
+    <p>No leagues available yet.</p>
+  } @else {
+    <div class="card-grid">
+      @for (league of leagues; track league.id) {
+        <article class="card">
+          <h2>{{ league.name }}</h2>
+          <p>Season {{ league.seasonYear }}</p>
+          <p>{{ league.teams.length }} teams</p>
+          <div class="actions">
+            <a [routerLink]="['/leagues', league.id, 'predict']" class="btn primary">Make prediction</a>
+            <a [routerLink]="['/leagues', league.id, 'leaderboard']" class="btn">Leaderboard</a>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

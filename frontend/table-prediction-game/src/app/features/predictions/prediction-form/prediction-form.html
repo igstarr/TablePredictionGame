@@ -1,0 +1,57 @@
+<section class="page">
+  <a routerLink="/" class="back-link">Back to leagues</a>
+
+  @if (loading) {
+    <p>Loading league...</p>
+  } @else if (league) {
+    <h1>Predict {{ league.name }} {{ league.seasonYear }}</h1>
+    <p class="subtitle">Enter your predicted final position and points for each team.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="prediction-form">
+      <label class="field">
+        <span>Your name</span>
+        <input type="text" formControlName="playerName" placeholder="Enter your display name" />
+      </label>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Position</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="entries">
+            @for (entry of entries.controls; track entry; let i = $index) {
+              <tr [formGroupName]="i">
+                <td>
+                  <input type="text" formControlName="teamName" />
+                </td>
+                <td>
+                  <input type="number" formControlName="predictedPosition" min="1" />
+                </td>
+                <td>
+                  <input type="number" formControlName="predictedPoints" min="0" />
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+      @if (success) {
+        <p class="success">{{ success }}</p>
+      }
+
+      <button type="submit" class="btn primary" [disabled]="submitting">
+        {{ submitting ? 'Submitting...' : 'Submit prediction' }}
+      </button>
+    </form>
+  } @else {
+    <p class="error">{{ error }}</p>
+  }
+</section>
