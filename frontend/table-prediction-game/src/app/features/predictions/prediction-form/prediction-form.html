@@ -1,38 +1,57 @@
-<section class="page">
-  <a routerLink="/" class="back-link">Back to leagues</a>
+<section class="mx-auto max-w-[960px]">
+  <a routerLink="/" class="mb-4 inline-block no-underline">Back to leagues</a>
 
   @if (loading) {
     <p>Loading league...</p>
   } @else if (league) {
     <h1>Predict {{ league.name }} {{ league.seasonYear }}</h1>
-    <p class="subtitle">Enter your predicted final position and points for each team.</p>
+    <p class="mb-8 text-slate-500">Enter your predicted final position and points for each team.</p>
 
-    <form [formGroup]="form" (ngSubmit)="submit()" class="prediction-form">
-      <label class="field">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-6">
+      <label class="flex max-w-xs flex-col gap-2">
         <span>Your name</span>
-        <input type="text" formControlName="playerName" placeholder="Enter your display name" />
+        <input
+          type="text"
+          formControlName="playerName"
+          placeholder="Enter your display name"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2"
+        />
       </label>
 
-      <div class="table-wrap">
-        <table>
+      <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+        <table class="w-full border-collapse">
           <thead>
             <tr>
-              <th>Team</th>
-              <th>Position</th>
-              <th>Points</th>
+              <th class="border-b border-slate-100 px-4 py-3 text-left">Team</th>
+              <th class="border-b border-slate-100 px-4 py-3 text-left">Position</th>
+              <th class="border-b border-slate-100 px-4 py-3 text-left">Points</th>
             </tr>
           </thead>
           <tbody formArrayName="entries">
             @for (entry of entries.controls; track entry; let i = $index) {
               <tr [formGroupName]="i">
-                <td>
-                  <input type="text" formControlName="teamName" />
+                <td class="border-b border-slate-100 px-4 py-3 text-left">
+                  <input
+                    type="text"
+                    formControlName="teamName"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
                 </td>
-                <td>
-                  <input type="number" formControlName="predictedPosition" min="1" />
+                <td class="border-b border-slate-100 px-4 py-3 text-left">
+                  <input
+                    type="number"
+                    formControlName="predictedPosition"
+                    min="1"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
                 </td>
-                <td>
-                  <input type="number" formControlName="predictedPoints" min="0" />
+                <td class="border-b border-slate-100 px-4 py-3 text-left">
+                  <input
+                    type="number"
+                    formControlName="predictedPoints"
+                    min="0"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
                 </td>
               </tr>
             }
@@ -41,17 +60,21 @@
       </div>
 
       @if (error) {
-        <p class="error">{{ error }}</p>
+        <p class="text-red-700">{{ error }}</p>
       }
       @if (success) {
-        <p class="success">{{ success }}</p>
+        <p class="text-green-700">{{ success }}</p>
       }
 
-      <button type="submit" class="btn primary" [disabled]="submitting">
+      <button
+        type="submit"
+        class="inline-flex cursor-pointer items-center justify-center rounded-lg border border-blue-700 bg-blue-700 px-4 py-2.5 text-white disabled:cursor-not-allowed disabled:opacity-60"
+        [disabled]="submitting"
+      >
         {{ submitting ? 'Submitting...' : 'Submit prediction' }}
       </button>
     </form>
   } @else {
-    <p class="error">{{ error }}</p>
+    <p class="text-red-700">{{ error }}</p>
   }
 </section>

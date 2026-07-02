@@ -6,8 +6,7 @@ import { League } from '../../../core/models/game.models';
 @Component({
   selector: 'app-league-list',
   imports: [RouterLink],
-  templateUrl: './league-list.html',
-  styleUrl: './league-list.scss'
+  templateUrl: './league-list.html'
 })
 export class LeagueList implements OnInit {
   private readonly leagueService = inject(LeagueService);
