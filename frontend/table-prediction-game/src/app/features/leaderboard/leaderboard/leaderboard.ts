@@ -8,8 +8,7 @@ import { LeaderboardEntry, League } from '../../../core/models/game.models';
 @Component({
   selector: 'app-leaderboard',
   imports: [RouterLink, DatePipe],
-  templateUrl: './leaderboard.html',
-  styleUrl: './leaderboard.scss'
+  templateUrl: './leaderboard.html'
 })
 export class Leaderboard implements OnInit {
   private readonly route = inject(ActivatedRoute);

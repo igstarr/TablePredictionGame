@@ -8,8 +8,7 @@ import { League } from '../../../core/models/game.models';
 @Component({
   selector: 'app-prediction-form',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './prediction-form.html',
-  styleUrl: './prediction-form.scss'
+  templateUrl: './prediction-form.html'
 })
 export class PredictionForm implements OnInit {
   private readonly route = inject(ActivatedRoute);

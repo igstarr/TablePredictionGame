@@ -1,38 +1,45 @@
-<section class="page">
-  <a routerLink="/" class="back-link">Back to leagues</a>
+<section class="mx-auto max-w-[960px]">
+  <a routerLink="/" class="mb-4 inline-block no-underline">Back to leagues</a>
 
   @if (league) {
     <h1>{{ league.name }} Leaderboard</h1>
-    <p class="subtitle">Lower total error means a better prediction.</p>
+    <p class="mb-8 text-slate-500">Lower total error means a better prediction.</p>
   }
 
   @if (loading) {
     <p>Loading leaderboard...</p>
   } @else if (error) {
-    <p class="error">{{ error }}</p>
+    <p class="text-red-700">{{ error }}</p>
   } @else if (entries.length === 0) {
     <p>No predictions yet. Be the first to submit one.</p>
     @if (league) {
-      <a [routerLink]="['/leagues', league.id, 'predict']" class="btn primary">Make prediction</a>
+      <a
+        [routerLink]="['/leagues', league.id, 'predict']"
+        class="inline-flex cursor-pointer items-center justify-center rounded-lg border border-blue-700 bg-blue-700 px-4 py-2.5 text-white no-underline"
+      >
+        Make prediction
+      </a>
     }
   } @else {
-    <div class="table-wrap">
-      <table>
+    <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+      <table class="w-full border-collapse">
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Player</th>
-            <th>Total error</th>
-            <th>Submitted</th>
+            <th class="border-b border-slate-100 px-4 py-3 text-left">Rank</th>
+            <th class="border-b border-slate-100 px-4 py-3 text-left">Player</th>
+            <th class="border-b border-slate-100 px-4 py-3 text-left">Total error</th>
+            <th class="border-b border-slate-100 px-4 py-3 text-left">Submitted</th>
           </tr>
         </thead>
         <tbody>
           @for (entry of entries; track entry.playerName + entry.submittedAt) {
             <tr>
-              <td>{{ entry.rank }}</td>
-              <td>{{ entry.playerName }}</td>
-              <td>{{ entry.totalError }}</td>
-              <td>{{ entry.submittedAt | date: 'medium' }}</td>
+              <td class="border-b border-slate-100 px-4 py-3 text-left">{{ entry.rank }}</td>
+              <td class="border-b border-slate-100 px-4 py-3 text-left">{{ entry.playerName }}</td>
+              <td class="border-b border-slate-100 px-4 py-3 text-left">{{ entry.totalError }}</td>
+              <td class="border-b border-slate-100 px-4 py-3 text-left">
+                {{ entry.submittedAt | date: 'medium' }}
+              </td>
             </tr>
           }
         </tbody>
